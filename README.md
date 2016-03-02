@@ -1,7 +1,7 @@
 #The Bee Game
 
 ##Objective
-The objective of this exercise is to create a .net MVC application that performs the following
+The objective of this exercise is to create a MVC application that performs the following
 tasks:
 
 - A web page must be produced as the interface to play the game. Styling is not
