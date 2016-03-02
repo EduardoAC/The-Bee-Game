@@ -1,0 +1,60 @@
+/* 
+    Created on : 01-mar-2016, 18:34:15
+    Author     : EduardoAC <Eduardo Aparicio Cardenes at Dream Maker Factory>
+*/
+.col-left{
+    height: 250px;
+}
+.col-right{
+    height: 250px;
+}
+.game-console{
+    width: 100%;
+    background: #DDD;
+    height: 250px;
+}
+ul.log-game {
+    height: 190px;
+    margin: 5px 0;
+    padding: 0;
+    background: #FFF;
+    border: 1px solid #666;
+    overflow: auto;
+}
+li.success{
+    color: #3c763d;
+}
+li.info{
+    color: #31708f;
+}
+button{
+    width: 100%;
+    height: 39px;
+    padding: 5px 0;
+}
+@media screen and (min-width: 768px){
+    .col-left{
+        width: 49%;
+        margin-right: 2%;
+        float: left;
+    }
+    .col-right{
+        width: 49%;
+        float: left;
+    }
+    .game-console{
+        background: #DDD;
+        height: 230px;
+        margin: 10px 0;
+        width: 100%;
+        /* display: block; */
+    }
+    ul.log-game {
+        height: 180px;
+        margin: 10px 0;
+        padding: 0;
+        background: #FFF;
+        border: 1px solid #666;
+    }
+
+}

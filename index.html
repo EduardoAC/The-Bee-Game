@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>The Bee Game</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href="game.css"/>
+    </head>
+    <body>
+        <section class="presentation">
+            <h1>The Bee Game</h1>
+            <p>Welcome to the fantastic and unique game you will ever play. This 
+                game was developed for Eduardo Aparicio Cardenes.</p>
+            <h2>The rules</h2>
+            <ul>
+                <li>Kill all the bees</li>
+                <li>You must use the killer button</li>
+                <li>The hit will be random</li>
+            </ul>
+            <p>Good Luck, soldier</p>
+        </section>
+        <section class="game">
+            <div class="col-left">
+                <canvas class="game-console" id='game-console'>
+                    
+                </canvas>
+            </div>
+            <div class="col-right">
+                <ul class='log-game' id='log-game'>
+                </ul>
+                <button id='fire-start-game-btn'>FIRE!!</button>
+            </div>
+        </section>
+        <script src='game.js' async></script>
+    </body>
+</html>
