@@ -5,139 +5,6 @@
  */
 
 
-function Bee() {
-    this.HP;
-    this.damageInjured;
-    this.position = [0, 0];
-    this.name = "Bee";
-    this.imageRef = false;
-    this.imageUrl = "images/bee.png";
-}
-
-Bee.prototype.attacked = function () {
-    if (this.HP >= 0) {
-        this.HP -= this.damageInjured;
-    }
-};
-
-Bee.prototype.isAlive = function () {
-    return this.HP > 0;
-};
-
-Bee.prototype.render = function (context) {
-    var _this = this;
-    var base_image = new Image();
-    base_image.src = this.imageUrl;
-    var callback = function (_this) {
-        _this.imageRef = base_image;
-        context.drawImage(base_image, _this.position[0], _this.position[1]);
-    }
-    base_image.onload = callback.bind(null, _this);
-};
-
-Bee.prototype.whereIAm = function () {
-    return this.position;
-};
-
-Bee.prototype.whoIAm = function () {
-    return this.name;
-};
-
-Bee.prototype.printStatus = function () {
-    var statusText, className;
-    if (this.isAlive()) {
-        statusText = "You hit the " + this.name + " Bee still have " + this.HP;
-        className = "info"
-    } else {
-        statusText = "Great job you killed a " + this.name + " bee";
-        className = "success";
-    }
-    printStatus(statusText, className);
-};
-
-QueenBee.prototype = new Bee();
-QueenBee.prototype.constructor = QueenBee;
-function QueenBee() {
-    this.HP = 100;
-    this.damageInjured = 8;
-    this.position = [135, 0];
-    this.name = "Queen";
-    this.imageUrl = 'images/queen-bee.png';
-}
-
-WorkerBee.prototype = new Bee();
-WorkerBee.prototype.constructor = WorkerBee;
-function WorkerBee() {
-    this.HP = 75;
-    this.damageInjured = 10;
-    this.position = [0, 50];
-    this.name = "Worker";
-    this.imageUrl = 'images/worker-bee.png';
-}
-
-DroneBee.prototype = new Bee();
-DroneBee.prototype.constructor = DroneBee;
-function DroneBee() {
-    this.HP = 50;
-    this.damageInjured = 12;
-    this.position = [0, 100];
-    this.name = "Drone";
-    this.imageUrl = 'images/drone-bee.png';
-}
-
-
-var drawHexGrid = function (opts, c) {
-
-    var alpha = opts.alpha || 1;
-    var color = opts.color || '#1e1e1e';
-    var lineWidth = opts.lineWidth || 1;
-    var radius = opts.radius || 20;
-
-
-    var mapGridCanvas = c.getContext("2d");
-    mapGridCanvas.clearRect(0, 0, c.width, c.height);
-    mapGridCanvas.globalAlpha = alpha;
-    mapGridCanvas.strokeStyle = color;
-    mapGridCanvas.lineWidth = lineWidth;
-
-    //length of line
-    var i, x, y, r = radius;
-    var part = 60;
-    var hexSize = r * Math.sqrt(3);
-    var yHexSize = r * Math.sqrt(2.25);
-    var xHexes = 2000 / hexSize;
-    var yHexes = 2000 / yHexSize;
-    var shiftX;
-
-    mapGridCanvas.beginPath();
-
-    //loop through hex "rows" and every other row shift
-    for (var xGrid = 0; xGrid <= xHexes; xGrid++) {
-        for (var yGrid = 0; yGrid <= yHexes; yGrid++) {
-            if (yGrid % 2 == 0) {
-                //even row
-                shiftX = hexSize / 2;
-            } else {
-                //odd row
-                shiftX = 0;
-            }
-            for (i = 0; i <= 6; i++) {
-                var a = i * part - 90;
-                x = r * Math.cos(a * Math.PI / 180) + xGrid * hexSize + shiftX;
-                y = r * Math.sin(a * Math.PI / 180) + yGrid * yHexSize;
-                if (i == 0) {
-                    mapGridCanvas.moveTo(x, y);
-                } else {
-                    mapGridCanvas.lineTo(x, y);
-                }
-            }
-        }
-    }
-    mapGridCanvas.stroke();
-
-    return mapGridCanvas;
-};
-
 
 
 var getRandomMinMax = function (min, max) {
@@ -152,24 +19,6 @@ var printStatus = function (statusText, className) {
     status.className = className;
     logGame.appendChild(status);
 
-};
-var mixBees = function (array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
 };
 
 var domReady = function (callback) {
@@ -187,29 +36,11 @@ var repaint = function () {
     for (var i = 0; i < length; i++) {
         beeNest[i].render(context);
     }
-}
+};
 
 var initializeGame = function () {
-    var queenBee = new QueenBee();
-    var BeePosition = [];
-    var i;
-
-    BeePosition.push(queenBee);
-
-    for (i = 0; i < 5; i++) {
-        var temp = new WorkerBee();
-        temp.position[0] = i * 35 + 70;
-        BeePosition.push(temp);
-    }
-
-    for (i = 0; i < 8; i++) {
-        var temp = new DroneBee();
-        temp.position[0] = i * 25 + 50;
-        BeePosition.push(temp);
-    }
-
-    beeNest = mixBees(BeePosition);
-
+    beeNest = new Hive();
+    beeNest.createHive();
     repaint();
 };
 
@@ -237,7 +68,7 @@ var initialize = function () {
         var beeAttacked = beeNest[beeAttackedIndex];
 
         beeAttacked.attacked();
-        beeAttacked.printStatus();
+        beeAttacked.printStatus(printStatus);
         if (!beeAttacked.isAlive()) {
             removeItem(beeNest, beeAttackedIndex);
             repaint();
