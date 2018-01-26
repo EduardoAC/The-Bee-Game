@@ -1,6 +1,6 @@
-#The Bee Game
+# The Bee Game
 
-##Objective
+## Objective
 The objective of this exercise is to create a MVC application that performs the following
 tasks:
 
@@ -11,8 +11,9 @@ expected nor necessary.
 - The game must adhere to specification.
 - The game logic should be implemented in C# with an html UI. You may use any readily available libs that you wish.
 
-##Specification
-###Bees
+## Specification
+
+### Bees
 There are three types of bees in this game:
 
 - Queen Bee
@@ -31,10 +32,10 @@ Drone Bees have a lifespan of 50 Hit Points.
 When a Drone Bee is hit, 12 Hit Points are deducted from his lifespan.
 There are 8 Drone Bees.
 
-###Gameplay
+### Gameplay
 To play, there must be a button that enables a user to “hit” a random bee. The selection of a
 bee must be random. When the bees are all dead, the game must be able to reset itself with
 full life bees for another round.
 
-###Constraints
+### Constraints
 The application must run through a browser
